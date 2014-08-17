@@ -14,16 +14,19 @@ else
 
 if ($_FILES["file"]["error"] > 0) 
 {
-	echo "Error: " . $_FILES["file"]["error"] . "<br>";
+	//echo "Error: " . $_FILES["file"]["error"] . "<br>";
+		header("Location:userhome.php?error=fileNotUploaded");
+	
 } 
 else 
 {
 	$row=mysql_query("select * from user where login='$user'" , $db);
-	$result=mysql_fetch_array($row);
-	$userId =$result[0]['id'];
+	$userDetail = mysql_fetch_assoc($row);
+
+	$userId =$userDetail['id'];
 
 	$timestamp=time();
-	echo $userId;
+
 	
 	$fileId=$userId."u".$timestamp.$_FILES["file"]["name"];
 
@@ -31,8 +34,13 @@ else
 	{
 		mysql_query("INSERT INTO upload_history (user_id, file_id, timestamp)
 			VALUES ('$userId','$fileId','$timestamp')" , $db);
-
-
+		
+			header("Location:userhome.php?success=fileUploaded");
+		
+	}
+	else
+	{
+		header("Location:userhome.php?error=fileNotUploaded");
 	}
 }
 ?>

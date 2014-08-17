@@ -3,7 +3,7 @@ include ("../ws_db.php");
 
 if(isset($_SESSION['user'])) 
 {
-	header( "Location: userhome.php" );
+	header( "Location:userhome.php" );
 }
 
 else
@@ -12,7 +12,7 @@ else
 	$invalidu=!preg_match('/^[a-zA-Z0-9]+$/', $user); 
 	if($invalidu>0)
 	{ 
-		header("Location: index.php?error=invalidUser");
+		header("Location:index.php?error=invalidUser");
 	}
 	else
 	{
